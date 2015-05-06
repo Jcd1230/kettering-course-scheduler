@@ -1,0 +1,2 @@
+#!/bin/bash
+nginx -p /home/jason/shared/openresty_server -s reload
