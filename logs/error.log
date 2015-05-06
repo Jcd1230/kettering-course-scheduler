@@ -1,0 +1,12 @@
+2015/05/06 01:16:25 [alert] 22954#0: lua_code_cache is off; this will hurt performance in /mnt/Raid1TB/DBServer/kettering-course-scheduler/conf/nginx.conf:13
+2015/05/06 01:54:45 [alert] 23629#0: lua_code_cache is off; this will hurt performance in /mnt/Raid1TB/DBServer/kettering-course-scheduler/conf/nginx.conf:13
+2015/05/06 01:54:45 [notice] 23629#0: signal process started
+2015/05/06 01:54:45 [alert] 22954#0: lua_code_cache is off; this will hurt performance in /mnt/Raid1TB/DBServer/kettering-course-scheduler/conf/nginx.conf:13
+2015/05/06 01:54:45 [emerg] 22954#0: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2015/05/06 01:54:45 [emerg] 22954#0: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2015/05/06 01:54:45 [emerg] 22954#0: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2015/05/06 01:54:45 [emerg] 22954#0: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2015/05/06 01:54:45 [emerg] 22954#0: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2015/05/06 01:54:45 [emerg] 22954#0: still could not bind()
+2015/05/06 01:54:54 [alert] 23635#0: lua_code_cache is off; this will hurt performance in /mnt/Raid1TB/DBServer/kettering-course-scheduler/conf/nginx.conf:13
+2015/05/06 01:55:05 [alert] 23643#0: lua_code_cache is off; this will hurt performance in /mnt/Raid1TB/DBServer/kettering-course-scheduler/conf/nginx.conf:13

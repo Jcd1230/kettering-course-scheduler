@@ -1,2 +1,2 @@
 #!/bin/bash
-nginx -p /home/jason/shared/openresty_server -s reload
+nginx -p `pwd` -s reload
