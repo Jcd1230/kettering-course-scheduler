@@ -74,7 +74,7 @@ end
 for major, classes in pairs(majors) do
 	print("",'{ "'..major..'", "'..majorname[major]:upper()..'" },')
 	for num, title in pairs(classes) do
-	--	print(major .. "-" .. num, title)
+		print(major .. "-" .. num, title)
 	end
 end
 
