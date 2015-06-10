@@ -18,15 +18,52 @@ body,html{
 #sidebar .collection{
   margin: 0 0 0 0;
 }
+.courses{
+  border-right: 0;
+  border-left: 0;
+  border-bottom: 0;
+}
+
+.courses  ul.collapsible-accordion{
+  border-right:0;
+  border-left:0;
+}
+
 .group-header{
+  border-right:0;
+  border-left:0;
+}
+
+.group-title{
   float:left;
 }
+
+li.major{
+  border-bottom: 0 !important;  
+}
+
 .percent{
   float:right;
   color:lightgray;  
   font-size: 1.3rem;
   line-height: 2.104rem;
 }
+
+.tabs{
+  border-top: 1px solid #e0e0e0;
+}
+
+.tabs .tab a{
+  color:black;
+}
+
+.tabs .tab a:hover{
+  color:lightgray;
+}
+
+.tabs .indicator {
+  background-color:#26a69a;
+} 
 /*.side-nav.fixed {
     left: 0;
     position: relative;
