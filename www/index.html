@@ -1,0 +1,145 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="google-signin-client_id" content="549719962445-llq8g7bvndvf48igepa99ch5b8bul0gp.apps.googleusercontent.com">
+  
+	<!-- load custom font -->
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+	<link href="css/style.css" rel="stylesheet" type="text/css">
+    
+	<title>Kettering Course Planner</title>
+</head>
+<body class="row">
+  <div id="sidebar" class="white">
+     <div id="logo" class="center-align">
+       <img src="images/kulogo.png"/>
+  	 </div>
+     <div class="row">
+    <div class="col s12 no-padding">
+      <ul class="tabs">
+        <li class="tab col s9"><a class="active" href="#test1">CS</a></li>
+        <li class="tab col s3"><a href="#test2"><i class="small mdi-content-add"></i></a></li>
+      </ul>
+    </div>
+    <div id="test1" class="no-padding col s12">
+      <ul class="courses no-padding collection with-header">
+        <li class="major collection-header">
+          <div>
+            <h5 class="group-title">Computer Science</h5>
+            <h5 class="percent">70%</h5>
+          </div>
+          <div class="progress">
+            <div class="determinate" style="width: 70%"></div>
+          </div>
+        </li>
+        <li class="no-padding ">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header collection-item">Computer Science</a>
+                
+              <div class="collapsible-body">
+                <ul>
+                  <li><a href="#!">First</a></li>
+                  <li><a href="#!">Second</a></li>
+                  <li><a href="#!">Third</a></li>
+                  <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                      <li>
+                        <a class="collapsible-header collection-item">Dropdown</a>
+                        <div class="collapsible-body">
+                          <ul>
+                            <li><a href="#!">First</a></li>
+                            <li><a href="#!">Second</a></li>
+                            <li><a href="#!">Third</a></li>
+                            <li><a href="#!">Fourth</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                  </ul>
+                </ul>
+              </div>
+            </li>
+        </ul>
+      </li>
+      </ul></div>
+    <div id="test2" class="col s12">Test 2</div>
+  </div>
+  
+     
+  </div>
+  <div id="main" class="col s12">
+    
+    <nav class="light-blue lighten-1" role="navigation">
+      <div class=" container"><a id="logo-container" href="#" class="brand-logo">Logo</a> 
+        <ul class="right pagination hide-on-med-and-down">
+        </ul>
+      </div>
+    </nav>
+    
+    <div id="schedule" class="section no-pad-bot">
+      <div class="container z-depth-2 white">
+          <header>
+            <h3>Fall 2015</h3>
+              <!--<p class="hide-completed">-->
+              <!--  <input type="checkbox" id="hide-completed-checkbox" checked="{{hideCompleted}}" />-->
+              <!--  <label for="hide-completed-checkbox">  -->
+              <!--    Hide Completed Tasks-->
+              <!--  </label>-->
+              <!--</p>-->
+              
+    <!--        {{#if currentUser}}-->
+            <form class="new-task">
+              <input type="text" name="text" placeholder="Type to add new class" />
+            </form>
+    <!--        {{/if}}-->
+          </header>
+          
+          <ul>
+    <!--          {{#each tasks}}
+              {{> task}}
+            {{/each}}-->
+          </ul>
+        </div>
+    </div>
+    
+    
+    <div class="container">
+      <div class="section">
+    
+        <!--   Icon Section   -->
+        
+    
+      </div>
+      <br><br>
+    
+      <div class="section">
+    
+      </div>
+    </div>     
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>		
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>  
+<script src='http://cdn.ractivejs.org/latest/ractive.js'></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="js/init.js"></script>
+<script type="text/javascript">
+  
+	function onSignIn(googleUser) {
+		var profile = googleUser.getBasicProfile();
+		console.log('ID: ' + profile.getId());
+		console.log('Name: ' + profile.getName());
+		console.log('Image URL: ' + profile.getImageUrl());
+		console.log('Email: ' + profile.getEmail());
+
+		console.log(googleUser.getAuthResponse().id_token)
+	}
+</script>
+</body>
+</html>
+
+
