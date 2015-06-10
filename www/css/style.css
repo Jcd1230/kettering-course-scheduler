@@ -39,13 +39,14 @@ h6 {
 
 #schedule .container{
   padding-top:10px;
-  padding-bottom: 10px;  
+  padding-bottom: 10px;
 }
 
 #sidebar{
   height:100%;
   width:25%;
   position: fixed;
+  overflow: scroll;
 }
 
 #sidebar .collection{
@@ -73,7 +74,7 @@ h6 {
 }
 
 li.major{
-  border-bottom: 0 !important;  
+  border-bottom: 0 !important;
 }
 
 .pagination li.active {
@@ -82,7 +83,7 @@ li.major{
 
 .percent{
   float:right;
-  color:lightgray;  
+  color:lightgray;
   font-size: 1.3rem;
   line-height: 2.104rem;
 }
@@ -101,7 +102,7 @@ li.major{
 
 .tabs .indicator {
   background-color:#26a69a;
-} 
+}
 
 .term .row{
   margin-bottom:5;

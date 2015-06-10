@@ -51,7 +51,7 @@ function onSignIn(googleUser) {
 					<h5 class="percent">{{current.completed_percentage}}</h5>
 				</div>
 				<div class="progress">
-					<div class="determinate" style="width: 70%"></div>
+					<div class="determinate" style="width: {{current.completed_percentage}}%"></div>
 				</div>
 				</li>
 				<li class="no-padding ">
@@ -59,24 +59,21 @@ function onSignIn(googleUser) {
 					{{#each requirements:i}}
 					<li>
 					<a class="collapsible-header collection-item">{{name}}</a>
-					<div class="collapsible-body">
+					<div class="collapsible-body" style="padding-left:40px">
 						<ul>
 							{{#each requirements[i].subgroups}}
 							<li><a href="#!"></a></li>
-							<li class="no-padding">
-							<ul class="collapsible collapsible-accordion">
-								<li>
-								<a class="collapsible-header collection-item" style="height:2rem; line-height:0.9rem;">Dropdown</a>
-								<div class="collapsible-body">
-									<ul>
-										<li><a href="#!">{{credits_desc}}</a></li>
-										{{#each courses:c}}
-										<li><a href="#!">{{_courses[courses[c]].name}}</a></li>
-										{{/each}}
-									</ul>
+							<li><span>{{credit_desc}}</a><hr /></li>
+							{{#each courses:c}}
+							<li>{{_courses[courses[c]].color}}
+							<div class='collection-item course_selection' data-cid='{{courses[c]}}' style="background-color: #cfd8dc;width: 90%; float:left; margin: 4px 30px 4px 4px;"><h6 style="float:left" class="bold" href="#!">{{_courses[courses[c]].name}}</h6>
+								<div data-cid='{{courses[c]}}' class='course_button btn-floatingbtn-sm waves-effect waves-light
+									{{_courses[courses[c]].color}} accent-3' style="float:right; margin-top: 3px;">
+									<i class="icon small mdi-content-add"></i>
 								</div>
-								</li>
-							</ul>
+								</div>
+							</li>
+							{{/each}}
 							</li>
 							{{/each}}
 						</ul>
@@ -91,28 +88,13 @@ function onSignIn(googleUser) {
 </div>
 
 <div id="main" class="col s12">
-	<div class="row">
-		<div class="light-blue lighten-1 col s12">
-			<ul class="pagination">
-				<li class="disabled"><a href="#!"><i class="mdi-navigation-chevron-left"></i></a></li>
-				<li class="active"><a href="#!">1</a></li>
-				<li class="waves-effect"><a href="#!">2</a></li>
-				<li class="waves-effect"><a href="#!">3</a></li>
-				<li class="waves-effect"><a href="#!">4</a></li>
-				<li class="waves-effect"><a href="#!">5</a></li>
-				<li class="waves-effect"><a href="#!"><i class="mdi-navigation-chevron-right"></i></a></li>
-			</ul>
-		</div>
-	</div>
-
 	<div id="schedule">
 		<div class="container z-depth-2 white">
 			<header>
 				<h4 class="left-align">Fall 2015</h4>
-				<a class="btn-floating btn-sm waves-effect waves-light teal lighten-2"><i class="mdi-content-add"></i></a>
 			</header>
+			{{#each current.terms}}
 			<div class="term">
-
 				<div class="row">
 					<div class="col s3">
 						<h6>Course #</h6>
@@ -124,42 +106,21 @@ function onSignIn(googleUser) {
 						<h6>Credits</h6>
 					</div>
 				</div>
-
+			</div>
+				{{#each courses:c}}
 				<div class="row">
 					<div class="col s3">
-						<h6>CS 101</h6>
+						<h6>{{_courses[courses[c]].name}}</h6>
 					</div>
 					<div class="col s6">
-						<h6>Programing And Algorithims 1</h6>
+						<h6>{{_courses[courses[c]].fullname}}</h6>
 					</div>
 					<div class="col s3">
-						<h6>4</h6>
+						<h6>{{_courses[courses[c]].credits}}</h6>
 					</div>
 				</div>
-
-				<div class="row">
-					<div class="col s3">
-						<h6>CS 101</h6>
-					</div>
-					<div class="col s6">
-						<h6>Programing And Algorithims 1</h6>
-					</div>
-					<div class="col s3">
-						<h6>4</h6>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s3">
-						<h6>CS 101</h6>
-					</div>
-					<div class="col s6">
-						<h6>Programing And Algorithims 1</h6>
-					</div>
-					<div class="col s3">
-						<h6>4</h6>
-					</div>
-				</div>
-
+				{{/each}}
+			{{/each}}
 			</div>
 		</div>
 	</div>
