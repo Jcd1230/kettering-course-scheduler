@@ -77,6 +77,13 @@ h6 {
   border-left:0;
 }
 
+div.course-selection {
+	background-color: #cfd8dc;
+	width: 90%;
+	float: left;
+	margin: 4px 30px 4px 4px;
+}
+
 .group-header{
   border-right:0;
   border-left:0;

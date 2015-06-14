@@ -27,16 +27,16 @@
 		<div id="test1" class="no-padding col s12">
 			<ul class="courses no-padding collection with-header">
 				<li class="major collection-header">
-				<div>
-					<h5 class="group-title"></h5>
-					<h5 class="percent"></h5>
-				</div>
-				<div class="progress">
-					<div class="determinate" style="width: 0%"></div>
-				</div>
+					<div>
+						<h5 class="group-title"></h5>
+						<h5 class="percent"></h5>
+					</div>
+					<div class="progress">
+						<div class="determinate" style="width: 0%"></div>
+					</div>
 				</li>
 				<li class="no-padding ">
-					<ul class="collapsible collapsible-accordion">
+					<ul id="majorRequirements" class="collapsible collapsible-accordion">
 					</ul>
 				</li>
 			</ul>
@@ -44,319 +44,104 @@
 	</div>
 </div>
 
-  <div class="col s12" id="main">
-        <nav id="topnav">
-            <div class="nav-wrapper light-blue lighten-2">
-                <ul class="right hide-on-med-and-down">
-                    <li>
-                        <a href="sass.html">Sass</a>
-                    </li>
-
-                    <li>
-                        <a href="components.html">Components</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        <div class="row">
-            <div class="col s10" id="schedule">
-                <div class="container z-depth-2 white scrollspy" id="fall2015">
-                    <header>
-                        <h4 class="left-align">Fall 2015</h4>
-                    </header>
-
-                    <table class="striped">
-                        <thead>
-                            <tr>
-                                <th data-field="id">Name</th>
-
-                                <th data-field="name">Item Name</th>
-
-                                <th data-field="price">Item Price</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Alvin</td>
-
-                                <td>Eclair</td>
-
-                                <td>$0.87</td>
-                            </tr>
-
-                            <tr>
-                                <td>Alan</td>
-
-                                <td>Jellybean</td>
-
-                                <td>$3.76</td>
-                            </tr>
-
-                            <tr>
-                                <td>Jonathan</td>
-
-                                <td>Lollipop</td>
-
-                                <td>$7.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="container z-depth-2 white scrollspy" id="spring2016">
-                    <header>
-                        <h4 class="left-align">Fall 2015</h4>
-                    </header>
-
-                    <table class="striped">
-                        <thead>
-                            <tr>
-                                <th data-field="id">Name</th>
-
-                                <th data-field="name">Item Name</th>
-
-                                <th data-field="price">Item Price</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Alvin</td>
-
-                                <td>Eclair</td>
-
-                                <td>$0.87</td>
-                            </tr>
-
-                            <tr>
-                                <td>Alan</td>
-
-                                <td>Jellybean</td>
-
-                                <td>$3.76</td>
-                            </tr>
-
-                            <tr>
-                                <td>Jonathan</td>
-
-                                <td>Lollipop</td>
-
-                                <td>$7.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="container z-depth-2 white scrollspy" id="fall2016">
-                    <header>
-                        <h4 class="left-align">Fall 2015</h4>
-                    </header>
-
-                    <table class="striped">
-                        <thead>
-                            <tr>
-                                <th data-field="id">Name</th>
-
-                                <th data-field="name">Item Name</th>
-
-                                <th data-field="price">Item Price</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Alvin</td>
-
-                                <td>Eclair</td>
-
-                                <td>$0.87</td>
-                            </tr>
-
-                            <tr>
-                                <td>Alan</td>
-
-                                <td>Jellybean</td>
-
-                                <td>$3.76</td>
-                            </tr>
-
-                            <tr>
-                                <td>Jonathan</td>
-
-                                <td>Lollipop</td>
-
-                                <td>$7.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="container z-depth-2 white scrollspy" id="spring2017">
-                    <header>
-                        <h4 class="left-align">Fall 2015</h4>
-                    </header>
-
-                    <table class="striped">
-                        <thead>
-                            <tr>
-                                <th data-field="id">Name</th>
-
-                                <th data-field="name">Item Name</th>
-
-                                <th data-field="price">Item Price</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Alvin</td>
-
-                                <td>Eclair</td>
-
-                                <td>$0.87</td>
-                            </tr>
-
-                            <tr>
-                                <td>Alan</td>
-
-                                <td>Jellybean</td>
-
-                                <td>$3.76</td>
-                            </tr>
-
-                            <tr>
-                                <td>Jonathan</td>
-
-                                <td>Lollipop</td>
-
-                                <td>$7.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="container z-depth-2 white scrollspy" id="fall2017">
-                    <header>
-                        <h4 class="left-align">Fall 2015</h4>
-                    </header>
-
-                    <table class="striped">
-                        <thead>
-                            <tr>
-                                <th data-field="id">Name</th>
-
-                                <th data-field="name">Item Name</th>
-
-                                <th data-field="price">Item Price</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Alvin</td>
-
-                                <td>Eclair</td>
-
-                                <td>$0.87</td>
-                            </tr>
-
-                            <tr>
-                                <td>Alan</td>
-
-                                <td>Jellybean</td>
-
-                                <td>$3.76</td>
-                            </tr>
-
-                            <tr>
-                                <td>Jonathan</td>
-
-                                <td>Lollipop</td>
-
-                                <td>$7.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="container z-depth-2 white scrollspy" id="spring2018">
-                    <header>
-                        <h4 class="left-align">Fall 2015</h4>
-                    </header>
-
-                    <table class="striped">
-                        <thead>
-                            <tr>
-                                <th data-field="id">Name</th>
-
-                                <th data-field="name">Item Name</th>
-
-                                <th data-field="price">Item Price</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Alvin</td>
-
-                                <td>Eclair</td>
-
-                                <td>$0.87</td>
-                            </tr>
-
-                            <tr>
-                                <td>Alan</td>
-
-                                <td>Jellybean</td>
-
-                                <td>$3.76</td>
-                            </tr>
-
-                            <tr>
-                                <td>Jonathan</td>
-
-                                <td>Lollipop</td>
-
-                                <td>$7.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div id="sidenav">
-                <div class="col hide-on-small-only s2">
-                    <ul class="section table-of-contents">
-                        <li>
-                            <a href="#fall2015">Fall 2015</a>
-                        </li>
-
-                        <li>
-                            <a href="#spring2016">Spring 2016</a>
-                        </li>
-
-                        <li>
-                            <a href="#fall2016">Fall 2016</a>
-                        </li>
-
-                        <li>
-                            <a href="#spring2017">Spring 2017</a>
-                        </li>
-
-                        <li>
-                            <a href="#fall2017">Fall 2017</a>
-                        </li>
-
-                        <li>
-                            <a href="#spring2018">Spring 2018</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="col s12" id="main">
+	<nav id="topnav">
+		<div class="nav-wrapper light-blue lighten-2">
+			<ul class="right hide-on-med-and-down">
+				<li>
+				<a href="sass.html">Sass</a>
+				</li>
+
+				<li>
+				<a href="components.html">Components</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="row">
+		<div class="col s10" id="schedule">
+			<div class="container z-depth-2 white scrollspy" id="fall2015">
+				<header>
+					<h4 class="left-align">Fall 2015</h4>
+				</header>
+
+				<table class="striped">
+					<thead>
+						<tr>
+							<th data-field="id">Name</th>
+							<th data-field="name">Item Name</th>
+							<th data-field="price">Item Price</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>Alvin</td>
+						<td>Eclair</td>
+						<td>$0.87</td>
+					</tr>
+					<tr>
+						<td>Alan</td>
+						<td>Jellybean</td>
+						<td>$3.76</td>
+					</tr>
+					<tr>
+						<td>Jonathan</td>
+						<td>Lollipop</td>
+						<td>$7.00</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="container z-depth-2 white scrollspy" id="spring2016">
+				<header>
+					<h4 class="left-align">Fall 2015</h4>
+				</header>
+
+				<table class="striped">
+					<thead>
+						<tr>
+							<th data-field="id">Name</th>
+							<th data-field="name">Item Name</th>
+							<th data-field="price">Item Price</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>Alvin</td>
+						<td>Eclair</td>
+						<td>$0.87</td>
+					</tr>
+					<tr>
+						<td>Alan</td>
+						<td>Spaghetti</td>
+						<td>$3.76</td>
+					</tr>
+					<tr>
+						<td>Jonathan</td>
+						<td>Lollipop</td>
+						<td>$7.00</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+
+		<div id="sidenav">
+			<div class="col hide-on-small-only s2">
+				<ul class="section table-of-contents">
+					<li>
+					<a href="#fall2015">Fall 2015</a>
+					</li>
+
+					<li>
+					<a href="#spring2016">Spring 2016</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div style="display: none;"> <!-- DROPDOWNS/MODALS -->
 	<ul id="dropdownMajorPicker" class="dropdown-content">
@@ -370,10 +155,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
 <script src="js/init.js"></script>
 <script type="text/javascript">
- $(document).ready(function(){
-    $('.scrollspy').scrollSpy();
-  });
-  
+
 function onSignIn(googleUser) {
 	var profile = googleUser.getBasicProfile();
 	console.log('ID: ' + profile.getId());
@@ -388,50 +170,35 @@ function onSignIn(googleUser) {
 </html>
 
 <template id="templateMajorRequirements">
+{{~it :category:cat_id}}
 <li>
-<a class="collapsible-header collection-item">name</a>
-<div class="collapsible-body" style="padding-left:40px">
-	<ul>
-		<li><a href="#!"></a></li>
-		<li><span>credit_desc</a><hr /></li>
-		<li>		<div class='collection-item course_selection' data-cid='courses[c]' style="background-color: #cfd8dc;width: 90%; float:left; margin: 4px 30px 4px 4px;"><h6 style="float:left" class="bold" href="#!">_courses[courses[c]].name</h6>
-			<div class='course_button btn-floatingbtn-sm waves-effect waves-light accent-3'
-				style="float:right; margin-top: 3px;">
-				<i class="icon small mdi-content-add"></i>
-			</div>
-			</div>
-		</li>
+	<a class="collapsible-header collection-item">{{=category.name}}</a>
+	<div class="collapsible-body" style="padding-left:40px">
+		<ul>
+			{{~category.subgroups :group:group_index}}
+			<li><a href="#!"></a></li>
+			<li><span class="credit-desc" data-min-credits="{{=group.min_credits}}"></span><hr /></li>
+			<li>
+				{{~group.courses :course_id:course_index}}
+				<div class='collection-item course-selection' data-course-id="{{=course_id}}">
+					<h6 style="float: left" class="bold">--</h6>
+					<div class='btn-floating btn-sm waves-effect waves-light accent-3'
+						style="float: right; margin-top: 3px;">
+						<i class="icon small mdi-content-add"></i>
+					</div>
+				</div>
+				{{~}}
+			</li>
+			{{~}}
 		</li>
 	</ul>
-</div>
+	</div>
 </li>
+{{~}}
 </template>
 
 <template id="templateTerm">
-<div class="term">
-	<div class="row">
-		<div class="col s3">
-			<h6>Course #</h6>
-		</div>
-		<div class="col s6">
-			<h6>Course Name</h6>
-		</div>
-		<div class="col s3">
-			<h6>Credits</h6>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col s3">
-			<h6>name</h6>
-		</div>
-		<div class="col s6">
-			<h6>fullname</h6>
-		</div>
-		<div class="col s3">
-			<h6>credits</h6>
-		</div>
-	</div>
-</div>
+
 </template>
 
 <!-- Modals -->
@@ -445,8 +212,8 @@ function onSignIn(googleUser) {
 </template>
 
 <template id="templateDropdownMajorPickerItems">
-	{{~it :major:i}}
-	<li><a data-major-id="{{=major.id}}">{{=major.name}} ({{=major.abbr}})</a></li>
-	<li class="divider"></li>
-	{{~}}
+{{~it :major:i}}
+<li><a data-major-id="{{=i}}">{{=major.name}} ({{=major.abbr}})</a></li>
+<li class="divider"></li>
+{{~}}
 </template>

@@ -1,32 +1,44 @@
 // Global app state
 var state = {};
 var templates = {}
-function loadapp()
-{
-	$("div.course_selection").each(function() {
+state.requirements = [];
 
-	});
-	$("div.course_button").each(function() {
-		$(this).addClass("mdi-icon-add");
-	});
-	$("div.course_button").each(function() {
-		$(this).on('click', function() {
-			$(this).toggleClass("mdi-icon-add");
-			$(this).toggleClass("mdi-icon-remove");
-		});
+function populateMajorPicker() {
+	var picker = $("#dropdownMajorPicker");
+	picker.html(templates.DropdownMajorPickerItems(state.majors));
+	picker.find("li a").on('click', function() {
+		selectMajor($(this).attr("data-major-id"));
 	});
 }
 
-function populateMajorPicker()
-{
-	var picker = $("#dropdownMajorPicker");
-	picker.html(templates.DropdownMajorPickerItems(state.majors));
+function selectMajor(major_id) {
+	console.log("Selected major "+major_id);
+	state.selectedmajor = major_id;
+	var requirements = $("#majorRequirements");
+	$.ajax("/api/get/requirements?major="+major_id).done(function(data) {
+		var reqs = JSON.parse(data);
+		state.requirements[major_id] = reqs;
+		requirements.html(templates.MajorRequirements(reqs));
+		var selections = requirements.find(".course-selection");
+		selections.each(function () {
+			var course = state.courses[$(this).attr("data-course-id")];
+			$(this).children("h6").html(course.fullname);
+			var icon = $(this).find("i");
+			$(this).children("div.btn-floating").on('click', function() {
+				icon.toggleClass("mdi-content-add");
+				icon.toggleClass("mdi-content-remove");
+			});
+		});
+		requirements.collapsible();
+	});
 }
 
 (function($){
 	$(function(){
 
 		var loading = false;
+
+		$('.scrollspy').scrollSpy();
 
 		// Load templates, i.e.
 		// templates.ModalPicker = "<div ..."
@@ -37,25 +49,15 @@ function populateMajorPicker()
 		});
 
 		$('.button-collapse').sideNav();
-		$("#majorPicker").dropdown({
-			inDuration: 300,
-			outDuration: 225,
-			constrain_width: false, // Does not change width of dropdown to that of the activator
-			hover: false, // Activate on hover
-			gutter: 0, // Spacing from edge
-			belowOrigin: true // Displays dropdown below the button
-		});
 
 		//Get courses and majors
-		$.ajax("/api/get/majors").done(function(data) {
-			state.majors = JSON.parse(data);
-			populateMajorPicker();
-		});
-
-		$.ajax("/api/get/courses").done(function(data) {
-			state.courses = JSON.parse(data);
-		});
-
+		$.when($.ajax("/api/get/majors"), $.ajax("/api/get/courses")).done(
+			function(majorJSON, courseJSON) {
+				state.majors = JSON.parse(majorJSON[0]);
+				state.courses = JSON.parse(courseJSON[0]);
+				populateMajorPicker();
+			}
+		);
 
 	}); // end of document ready
 })(jQuery); // end of jQuery name space
