@@ -20,23 +20,24 @@
 	</div>
 	<div class="row">
 		<div class="col s12 no-padding">
-			<div id="majorBtn" class="btn dropdown-button" data-activates="dropdownMajorPicker" style="width:100%">{{current.selected_title}}</div>
+			<div id="majorBtn" class="btn dropdown-button"
+				data-activates="dropdownMajorPicker" style="width:100%">Pick a Major...
+			</div>
 		</div>
 		<div id="test1" class="no-padding col s12">
 			<ul class="courses no-padding collection with-header">
 				<li class="major collection-header">
 				<div>
-					<h5 class="group-title">{{_majors[current.selected_major].name}}</h5>
-					<h5 class="percent">{{current.completed_percentage}}</h5>
+					<h5 class="group-title"></h5>
+					<h5 class="percent"></h5>
 				</div>
 				<div class="progress">
-					<div class="determinate" style="width: {{current.completed_percentage}}%"></div>
+					<div class="determinate" style="width: 0%"></div>
 				</div>
 				</li>
 				<li class="no-padding ">
-				<ul class="collapsible collapsible-accordion">
-
-				</ul>
+					<ul class="collapsible collapsible-accordion">
+					</ul>
 				</li>
 			</ul>
 		</div>
@@ -54,6 +55,11 @@
 	</div>
 </div>
 
+<div style="display: none;"> <!-- DROPDOWNS/MODALS -->
+	<ul id="dropdownMajorPicker" class="dropdown-content">
+
+	</ul>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/dot/1.0.3/doT.js'></script>
@@ -76,31 +82,25 @@ function onSignIn(googleUser) {
 
 <template id="templateMajorRequirements">
 <li>
-<a class="collapsible-header collection-item">{{name}}</a>
+<a class="collapsible-header collection-item">name</a>
 <div class="collapsible-body" style="padding-left:40px">
 	<ul>
-		{{#each requirements[i].subgroups}}
 		<li><a href="#!"></a></li>
-		<li><span>{{credit_desc}}</a><hr /></li>
-		{{#each courses:c}}
-		<li>{{_courses[courses[c]].color}}
-		<div class='collection-item course_selection' data-cid='{{courses[c]}}' style="background-color: #cfd8dc;width: 90%; float:left; margin: 4px 30px 4px 4px;"><h6 style="float:left" class="bold" href="#!">{{_courses[courses[c]].name}}</h6>
-			<div data-cid='{{courses[c]}}' class='course_button btn-floatingbtn-sm waves-effect waves-light
-				{{_courses[courses[c]].color}} accent-3' style="float:right; margin-top: 3px;">
+		<li><span>credit_desc</a><hr /></li>
+		<li>		<div class='collection-item course_selection' data-cid='courses[c]' style="background-color: #cfd8dc;width: 90%; float:left; margin: 4px 30px 4px 4px;"><h6 style="float:left" class="bold" href="#!">_courses[courses[c]].name</h6>
+			<div class='course_button btn-floatingbtn-sm waves-effect waves-light accent-3'
+				style="float:right; margin-top: 3px;">
 				<i class="icon small mdi-content-add"></i>
 			</div>
 			</div>
 		</li>
-		{{/each}}
 		</li>
-		{{/each}}
 	</ul>
 </div>
 </li>
 </template>
 
 <template id="templateTerm">
-{{#each current.terms}}
 <div class="term">
 	<div class="row">
 		<div class="col s3">
@@ -113,40 +113,33 @@ function onSignIn(googleUser) {
 			<h6>Credits</h6>
 		</div>
 	</div>
-	{{#each courses:c}}
 	<div class="row">
 		<div class="col s3">
-			<h6>{{_courses[courses[c]].name}}</h6>
+			<h6>name</h6>
 		</div>
 		<div class="col s6">
-			<h6>{{_courses[courses[c]].fullname}}</h6>
+			<h6>fullname</h6>
 		</div>
 		<div class="col s3">
-			<h6>{{_courses[courses[c]].credits}}</h6>
+			<h6>credits</h6>
 		</div>
 	</div>
-	{{/each}}
 </div>
-{{/each}}
 </template>
 
 <!-- Modals -->
 <template id="templateModalPicker">
 <div id="modalPickMajor" class="modal">
-	<h5 class="group-title">Pick {{#if current.primary_major}}first{{else}}second{{/if}} major</h5>
+	<h5 class="group-title">test modal</h5>
 	<select name="majorselect">
-		{{#each _majors}}
-		<option value="{{id}}">{{name}} ({{abbr}})</option>
-		{{/each}}
+		<option value="asdf">spaghetti</option>
 	</select>
 </div>
 </template>
 
-<template id="templateDropdownMajorPicker">
-<ul id="dropdownMajorPicker" class="dropdown-content">
-	{{#each _majors:i}}
-	<li><a on-click="pickMajor(i)">{{name}} ({{abbr}})</a></li>
+<template id="templateDropdownMajorPickerItems">
+	{{~it :major:i}}
+	<li><a data-major-id="{{=major.id}}">{{=major.name}} ({{=major.abbr}})</a></li>
 	<li class="divider"></li>
-	{{/each}}
-</ul>
+	{{~}}
 </template>

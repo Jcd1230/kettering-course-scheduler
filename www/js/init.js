@@ -1,6 +1,6 @@
 // Global app state
 var state = {};
-
+var templates = {}
 function loadapp()
 {
 	$("div.course_selection").each(function() {
@@ -17,10 +17,24 @@ function loadapp()
 	});
 }
 
+function populateMajorPicker()
+{
+	var picker = $("#dropdownMajorPicker");
+	picker.html(templates.DropdownMajorPickerItems(state.majors));
+}
+
 (function($){
 	$(function(){
 
 		var loading = false;
+
+		// Load templates, i.e.
+		// templates.ModalPicker = "<div ..."
+		$("template").each(function() {
+			var id = $(this).attr('id');
+			id = id.substring(8); // Trim leading 'template'
+			templates[id] = doT.template($(this).html());
+		});
 
 		$('.button-collapse').sideNav();
 		$("#majorPicker").dropdown({
@@ -35,11 +49,13 @@ function loadapp()
 		//Get courses and majors
 		$.ajax("/api/get/majors").done(function(data) {
 			state.majors = JSON.parse(data);
+			populateMajorPicker();
 		});
 
 		$.ajax("/api/get/courses").done(function(data) {
 			state.courses = JSON.parse(data);
 		});
+
 
 	}); // end of document ready
 })(jQuery); // end of jQuery name space
