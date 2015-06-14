@@ -14,27 +14,6 @@
 </head>
 <body id="pagebody" class="row">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script src='http://cdn.ractivejs.org/latest/ractive.js'></script>
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<script src="js/init.js"></script>
-<script type="text/javascript">
-
-function onSignIn(googleUser) {
-	var profile = googleUser.getBasicProfile();
-	console.log('ID: ' + profile.getId());
-	console.log('Name: ' + profile.getName());
-	console.log('Image URL: ' + profile.getImageUrl());
-	console.log('Email: ' + profile.getEmail());
-
-	console.log(googleUser.getAuthResponse().id_token)
-}
-</script>
-</body>
-</html>
-
-<asdf id="mainTemplate" style="display: none;" language="x/ractive">
 <div id="sidebar" class="white">
 	<div id="logo" class="center-align">
 		<img src="images/kulogo.png"/>
@@ -56,30 +35,7 @@ function onSignIn(googleUser) {
 				</li>
 				<li class="no-padding ">
 				<ul class="collapsible collapsible-accordion">
-					{{#each requirements:i}}
-					<li>
-					<a class="collapsible-header collection-item">{{name}}</a>
-					<div class="collapsible-body" style="padding-left:40px">
-						<ul>
-							{{#each requirements[i].subgroups}}
-							<li><a href="#!"></a></li>
-							<li><span>{{credit_desc}}</a><hr /></li>
-							{{#each courses:c}}
-							<li>{{_courses[courses[c]].color}}
-							<div class='collection-item course_selection' data-cid='{{courses[c]}}' style="background-color: #cfd8dc;width: 90%; float:left; margin: 4px 30px 4px 4px;"><h6 style="float:left" class="bold" href="#!">{{_courses[courses[c]].name}}</h6>
-								<div data-cid='{{courses[c]}}' class='course_button btn-floatingbtn-sm waves-effect waves-light
-									{{_courses[courses[c]].color}} accent-3' style="float:right; margin-top: 3px;">
-									<i class="icon small mdi-content-add"></i>
-								</div>
-								</div>
-							</li>
-							{{/each}}
-							</li>
-							{{/each}}
-						</ul>
-					</div>
-					</li>
-					{{/each}}
+
 				</ul>
 				</li>
 			</ul>
@@ -93,39 +49,89 @@ function onSignIn(googleUser) {
 			<header>
 				<h4 class="left-align">Fall 2015</h4>
 			</header>
-			{{#each current.terms}}
-			<div class="term">
-				<div class="row">
-					<div class="col s3">
-						<h6>Course #</h6>
-					</div>
-					<div class="col s6">
-						<h6>Course Name</h6>
-					</div>
-					<div class="col s3">
-						<h6>Credits</h6>
-					</div>
-				</div>
-			</div>
-				{{#each courses:c}}
-				<div class="row">
-					<div class="col s3">
-						<h6>{{_courses[courses[c]].name}}</h6>
-					</div>
-					<div class="col s6">
-						<h6>{{_courses[courses[c]].fullname}}</h6>
-					</div>
-					<div class="col s3">
-						<h6>{{_courses[courses[c]].credits}}</h6>
-					</div>
-				</div>
-				{{/each}}
-			{{/each}}
-			</div>
+
 		</div>
 	</div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/dot/1.0.3/doT.js'></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+<script src="js/init.js"></script>
+<script type="text/javascript">
+function onSignIn(googleUser) {
+	var profile = googleUser.getBasicProfile();
+	console.log('ID: ' + profile.getId());
+	console.log('Name: ' + profile.getName());
+	console.log('Image URL: ' + profile.getImageUrl());
+	console.log('Email: ' + profile.getEmail());
+
+	console.log(googleUser.getAuthResponse().id_token)
+}
+</script>
+</body>
+</html>
+
+<template id="templateMajorRequirements">
+<li>
+<a class="collapsible-header collection-item">{{name}}</a>
+<div class="collapsible-body" style="padding-left:40px">
+	<ul>
+		{{#each requirements[i].subgroups}}
+		<li><a href="#!"></a></li>
+		<li><span>{{credit_desc}}</a><hr /></li>
+		{{#each courses:c}}
+		<li>{{_courses[courses[c]].color}}
+		<div class='collection-item course_selection' data-cid='{{courses[c]}}' style="background-color: #cfd8dc;width: 90%; float:left; margin: 4px 30px 4px 4px;"><h6 style="float:left" class="bold" href="#!">{{_courses[courses[c]].name}}</h6>
+			<div data-cid='{{courses[c]}}' class='course_button btn-floatingbtn-sm waves-effect waves-light
+				{{_courses[courses[c]].color}} accent-3' style="float:right; margin-top: 3px;">
+				<i class="icon small mdi-content-add"></i>
+			</div>
+			</div>
+		</li>
+		{{/each}}
+		</li>
+		{{/each}}
+	</ul>
+</div>
+</li>
+</template>
+
+<template id="templateTerm">
+{{#each current.terms}}
+<div class="term">
+	<div class="row">
+		<div class="col s3">
+			<h6>Course #</h6>
+		</div>
+		<div class="col s6">
+			<h6>Course Name</h6>
+		</div>
+		<div class="col s3">
+			<h6>Credits</h6>
+		</div>
+	</div>
+	{{#each courses:c}}
+	<div class="row">
+		<div class="col s3">
+			<h6>{{_courses[courses[c]].name}}</h6>
+		</div>
+		<div class="col s6">
+			<h6>{{_courses[courses[c]].fullname}}</h6>
+		</div>
+		<div class="col s3">
+			<h6>{{_courses[courses[c]].credits}}</h6>
+		</div>
+	</div>
+	{{/each}}
+</div>
+{{/each}}
+</template>
+
 <!-- Modals -->
+<template id="templateModalPicker">
 <div id="modalPickMajor" class="modal">
 	<h5 class="group-title">Pick {{#if current.primary_major}}first{{else}}second{{/if}} major</h5>
 	<select name="majorselect">
@@ -134,14 +140,13 @@ function onSignIn(googleUser) {
 		{{/each}}
 	</select>
 </div>
+</template>
 
+<template id="templateDropdownMajorPicker">
 <ul id="dropdownMajorPicker" class="dropdown-content">
 	{{#each _majors:i}}
 	<li><a on-click="pickMajor(i)">{{name}} ({{abbr}})</a></li>
 	<li class="divider"></li>
 	{{/each}}
 </ul>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
-</asdf>
-
-
+</template>
