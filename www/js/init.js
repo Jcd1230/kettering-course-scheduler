@@ -2,6 +2,84 @@
 var state = {};
 var templates = {}
 state.requirements = [];
+state.terms = [];
+
+//state.terms[20152] = [155, 154, 153];
+
+state.selectedterm = 20152;
+state.courseplan = [];
+var term_names = [
+	"Spring ",
+	"Summer ",
+	"Fall ",
+	"Winter "
+];
+
+function termName(term_id) {
+	return (term_names[term_id%10] + Math.floor(term_id/10));
+}
+
+function nextTerm(term_id) {
+	if (term_id % 10 == 3) {
+		return (term_id + 7);
+	} else {
+		return term_id + 1;
+	}
+}
+
+function prevTerm(term_id) {
+	if (term_id % 10 == 0) {
+		return term_id - 7;
+	} else {
+		return term_id - 1;
+	}
+}
+
+function addTerm(term_id) {
+	state.terms[term_id] = [];
+	$("#schedule").append(templates.Term(term_id));
+}
+
+function removeTerm(term_id) {
+	var term = $("#term"+term_id);
+	term.find("tbody > tr").each(function() {
+		var course = $(this).attr('data-course-id');
+		removeCourse(course);
+	});
+	term.remove();
+	state.terms[term_id] = null;
+}
+
+function addCourse(id) {
+	addCourseToTerm(state.selectedterm, id);
+}
+
+function addCourseToTerm(term_id, course_id) {
+	state.terms[state.selectedterm].push(course_id);
+	state.courseplan[course_id] = term_id;
+	$("#term"+term_id).find("tbody")
+		.append(templates.TermItem(state.courses[course_id]));
+	//Update course button (+ or - icon)
+	var icon = $("btncourse"+course_id).find("i");
+	icon.removeClass("mdi-content-add");
+	icon.addClass("mdi-content-remove");
+}
+
+function removeCourse(id) {
+	var term_id = state.courseplan[id];
+	var term = state.terms[term_id];
+	var termCourseIndex = term.indexOf(id);
+	term.splice(termCourseIndex, 1); // Remove course from term array
+	//Update view; remove row from the term table
+	$("#term"+term_id).find("tbody > tr[data-course-id="+id+"]").remove();
+	//Update button icon
+	var icon = $("btncourse"+course_id).find("i");
+	icon.removeClass("mdi-content-remove");
+	icon.addClass("mdi-content-add");
+
+	//Cleanup data
+	state.courseplan[id] = null;
+}
 
 function populateMajorPicker() {
 	var picker = $("#dropdownMajorPicker");
@@ -9,6 +87,23 @@ function populateMajorPicker() {
 	picker.find("li a").on('click', function() {
 		selectMajor($(this).attr("data-major-id"));
 	});
+}
+
+function onclickCourseButton() {
+
+}
+
+function toggleCourse(id) {
+	if (state.courseplan[id]) {
+		removeCourse(id);
+	} else {
+		addCourse(id);
+	}
+}
+
+function toggleIcon($el) {
+	$el.toggleClass("mdi-content-add");
+	$el.toggleClass("mdi-content-remove");
 }
 
 function selectMajor(major_id) {
@@ -21,12 +116,12 @@ function selectMajor(major_id) {
 		requirements.html(templates.MajorRequirements(reqs));
 		var selections = requirements.find(".course-selection");
 		selections.each(function () {
-			var course = state.courses[$(this).attr("data-course-id")];
-			$(this).children("h6").html(course.fullname);
-			var icon = $(this).find("i");
-			$(this).children("div.btn-floating").on('click', function() {
-				icon.toggleClass("mdi-content-add");
-				icon.toggleClass("mdi-content-remove");
+			var course_id = $(this).attr("data-course-id");
+			var course = state.courses[course_id];
+			$(this).find(".course-shortname").html(course.name);
+			$(this).find(".course-fullname").html(course.fullname);
+			$(this).find("div.btn-floating").on('click', function(){
+				toggleCourse(course_id);
 			});
 		});
 		requirements.collapsible();
@@ -56,6 +151,15 @@ function selectMajor(major_id) {
 				state.majors = JSON.parse(majorJSON[0]);
 				state.courses = JSON.parse(courseJSON[0]);
 				populateMajorPicker();
+
+				//Load terms
+				var schedule = $("#schedule");
+				for (term_id in state.terms) {
+					addTerm(term_id);
+					for (course_id in state.terms[term_id]) {
+						addCourseToTerm(term_id, course_id);
+					}
+				}
 			}
 		);
 

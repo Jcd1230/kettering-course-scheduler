@@ -16,7 +16,8 @@ local res, err = db:query([[SELECT
   C.course_id AS id,
   C.course_number AS number,
   C.course_abbr AS abbr,
-  C.course_name AS fullname
+  C.course_name AS fullname,
+  C.credits AS credits
 FROM sch.course as C;
 ]])
 
@@ -30,10 +31,12 @@ local crs = {}
 
 for i,v in ipairs(res) do
 	crs[v.id+1] = {
+		id = v.id,
 		fullname = v.fullname,
 		name = v.abbr .. "-" .. v.number,
 		abbr = v.abbr,
-		number = v.number
+		number = v.number,
+		credits = v.credits
 	}
 end
 

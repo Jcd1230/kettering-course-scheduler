@@ -12,6 +12,10 @@ h6 {
   margin: 0.82rem 0 0.656rem 0;
 }
 
+.bold {
+	font-weight: bold;
+}
+
 #controls{
   height:60px;
 }
@@ -77,11 +81,25 @@ h6 {
   border-left:0;
 }
 
+.course-shortname {
+	font-weight: bold;
+	font-size: 1em;
+}
+
+.course-fullname {
+	font-weight: normal;
+	font-size: 1em;
+}
+
 div.course-selection {
 	background-color: #cfd8dc;
 	width: 90%;
 	float: left;
 	margin: 4px 30px 4px 4px;
+}
+
+div.course-selection h6 {
+	line-height
 }
 
 .group-header{
