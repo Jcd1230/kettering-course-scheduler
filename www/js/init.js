@@ -60,7 +60,7 @@ function addCourseToTerm(term_id, course_id) {
 	$("#term"+term_id).find("tbody")
 		.append(templates.TermItem(state.courses[course_id]));
 	//Update course button (+ or - icon)
-	var icon = $("btncourse"+course_id).find("i");
+	var icon = $("#btncourse"+course_id).find("i");
 	icon.removeClass("mdi-content-add");
 	icon.addClass("mdi-content-remove");
 }
@@ -73,7 +73,7 @@ function removeCourse(id) {
 	//Update view; remove row from the term table
 	$("#term"+term_id).find("tbody > tr[data-course-id="+id+"]").remove();
 	//Update button icon
-	var icon = $("btncourse"+course_id).find("i");
+	var icon = $("#btncourse"+id).find("i");
 	icon.removeClass("mdi-content-remove");
 	icon.addClass("mdi-content-add");
 
@@ -89,21 +89,12 @@ function populateMajorPicker() {
 	});
 }
 
-function onclickCourseButton() {
-
-}
-
 function toggleCourse(id) {
 	if (state.courseplan[id]) {
 		removeCourse(id);
 	} else {
 		addCourse(id);
 	}
-}
-
-function toggleIcon($el) {
-	$el.toggleClass("mdi-content-add");
-	$el.toggleClass("mdi-content-remove");
 }
 
 function selectMajor(major_id) {
@@ -114,16 +105,6 @@ function selectMajor(major_id) {
 		var reqs = JSON.parse(data);
 		state.requirements[major_id] = reqs;
 		requirements.html(templates.MajorRequirements(reqs));
-		var selections = requirements.find(".course-selection");
-		selections.each(function () {
-			var course_id = $(this).attr("data-course-id");
-			var course = state.courses[course_id];
-			$(this).find(".course-shortname").html(course.name);
-			$(this).find(".course-fullname").html(course.fullname);
-			$(this).find("div.btn-floating").on('click', function(){
-				toggleCourse(course_id);
-			});
-		});
 		requirements.collapsible();
 	});
 }

@@ -110,14 +110,15 @@ function onSignIn(googleUser) {
 				<li><span class="credit-desc" data-min-credits="{{=group.min_credits}}"></span></li>
 				<li>
 					{{~group.courses :course_id:course_index}}
+					{{var course = state.courses[course_id];}}
 					<div class='collection-item course-selection row' data-course-id="{{=course_id}}">
 						<div class="col s8">
-							<span class="course-shortname"></span><br>
-							<span class="course-fullname"></span>
+							<span class="course-shortname">{{=course.name}}</span><br>
+							<span class="course-fullname">{{=course.fullname}}</span>
 						</div>
 						<div class='col s4'>
 							<div id="btncourse{{=course_id}}"
-
+								onclick="toggleCourse({{=course_id}});"
 								class="btn-floating btn-sm waves-effect waves-light accent-3">
 								<i class="icon small mdi-content-add"></i>
 							</div>
@@ -141,7 +142,8 @@ function onSignIn(googleUser) {
 		<table class="striped">
 			<thead>
 				<tr>
-					<th data-field="id">Course</th>
+					<th data-field="id">Course Number</th>
+					<th data-field="num">Course Name</th>
 					<th data-field="name">Credits</th>
 					<th></th>
 				</tr>
@@ -155,9 +157,10 @@ function onSignIn(googleUser) {
 <template id="templateTermItem">
 	<tr data-course-id={{=it.id}}>
 		<td>{{=it.name}}</td>
+		<td>{{=it.fullname}}</td>
 		<td>{{=it.credits}}</td>
 		<td>
-			<div on-click="removeCourse({{=it.id}});"
+			<div onclick="removeCourse({{=it.id}});"
 				class='btn-floating btn-sm waves-effect waves-light accent-3'>
 				<i class="icon small mdi-content-remove"></i>
 			</div>
