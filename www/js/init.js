@@ -245,13 +245,5 @@ function onTermClick() {
 
 		$("#btnGoogleLogin a").on('click', googleSignIn);
 
-		$("#btnSave").on('click', function() {
-			/*localStorage.save = JSON.encode({
-				requirements = state.requirements,
-				courseplan = state.courseplan,
-				terms
-			});*/
-		}
-
 	}); // end of document ready
 })(jQuery); // end of jQuery name space
