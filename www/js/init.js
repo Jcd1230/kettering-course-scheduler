@@ -3,9 +3,13 @@ var state = {};
 var templates = {}
 state.requirements = [];
 state.terms = [];
+
 var userid = null;
 var username = "";
 var userimg = "";
+
+state.credits_taken = 0;
+
 state.courseplan = [];
 var term_names = [
 	"Spring ",
@@ -126,6 +130,7 @@ function warningToast(msg) {
 }
 
 function addCourseToTerm(term_id, course_id) {
+	state.credits_taken += state.courses[course_id].credits;
 	state.terms[state.selectedterm].push(course_id);
 	state.courseplan[course_id] = term_id;
 	$("#term"+term_id).find("tbody")
@@ -134,9 +139,12 @@ function addCourseToTerm(term_id, course_id) {
 	var icon = $("#btncourse"+course_id).find("i");
 	icon.removeClass("mdi-content-add");
 	icon.addClass("mdi-content-remove");
+
+	updateMajorProgress();
 }
 
 function removeCourse(id) {
+	state.credits_taken -= state.courses[id].credits;
 	var term_id = state.courseplan[id];
 	var term = state.terms[term_id];
 	var termCourseIndex = term.indexOf(id);
@@ -150,6 +158,14 @@ function removeCourse(id) {
 
 	//Cleanup data
 	state.courseplan[id] = null;
+
+	updateMajorProgress();
+}
+
+function updateMajorProgress() {
+	var progress = state.credits_taken / 161
+	var prog = Math.min(Math.round(progress*100), 100);
+	$("#majorProgressBar .determinate").css("width", prog + "%");
 }
 
 function populateMajorPicker() {
