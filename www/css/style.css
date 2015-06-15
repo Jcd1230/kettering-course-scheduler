@@ -196,3 +196,15 @@ li.major{
 .term.selected h4 {
 	font-weight: bold;
 }
+
+.trash-term-button {
+	color: #cfd8dc;
+}
+
+.trash-term-button:hover {
+	color: #212121;
+}
+
+.g-signin2 {
+	margin-top:10px;
+}

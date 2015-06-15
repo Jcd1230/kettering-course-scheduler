@@ -3,6 +3,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="549719962445-llq8g7bvndvf48igepa99ch5b8bul0gp.apps.googleusercontent.com">
 
 <!-- load custom font -->
@@ -61,7 +62,9 @@
 						<i class="small mdi-content-add left"></i>
 						Term
 					</a></li>
-					<li><a href="#"><i class="small mdi-social-person left"></i>Login</a></li>
+					<!--<li id="btnGoogleLogin">
+						<a href="#"><i class="small mdi-social-person left"></i>Login</a>
+					</li>-->
 				</ul>
 			</div>
 
@@ -115,13 +118,16 @@
 			<a class="btn-flat waves-effect modal-close waves-teal">Cancel</a>
 		</div>
 	</div>
-	<div class="modal" id="modalMsgDuplicateTerm">
+	<div class="modal" id="modalRemovalMsg">
 		<div class="modal-content">
-			Could not add the term because it already exists.
+			Are you sure you want to remove the <span></span> term and all of its courses from your plan?
 		</div>
 		<div class="modal-footer">
-			<a class="btn waves-effect waves-light modal-close">Okay</a>
+			<a onclick="removeTerm(+$(this).attr('data-term-id'))" class="btn waves-effect waves-light modal-close red">Remove</a>
+			<a class="btn-flat waves-effect waves-light modal-close">Cancel</a>
 		</div>
+	</div>
+	<div>
 	</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -133,15 +139,6 @@
 <script src="js/init.js"></script>
 <script type="text/javascript">
 
-function onSignIn(googleUser) {
-	var profile = googleUser.getBasicProfile();
-	console.log('ID: ' + profile.getId());
-	console.log('Name: ' + profile.getName());
-	console.log('Image URL: ' + profile.getImageUrl());
-	console.log('Email: ' + profile.getEmail());
-
-	console.log(googleUser.getAuthResponse().id_token)
-}
 </script>
 </body>
 </html>
@@ -151,11 +148,11 @@ function onSignIn(googleUser) {
 <li>
 <a class="collapsible-header collection-item">{{=category.name}}</a>
 <div class="collapsible-body" style="padding-left:40px">
-	<ul>
 		{{~category.subgroups :group:group_index}}
-		<li><a href="#!"></a></li>
-		<li><span class="credit-desc" data-min-credits="{{=group.min_credits}}"></span></li>
-		<li>
+		<div class="collection-item row credit-desc" style="margin: 0 0 -10px -40px;"
+			data-min-credits="{{=group.min_credits}}">
+				<span class="bold left">{{=subgroupTitle(group.min_credits)}}</span>
+		</div>
 		{{~group.courses :course_id:course_index}}
 		{{var course = state.courses[course_id];}}
 		<div class='collection-item course-selection row' data-course-id="{{=course_id}}">
@@ -172,10 +169,7 @@ function onSignIn(googleUser) {
 			</div>
 		</div>
 		{{~}}
-		</li>
 		{{~}}
-		</li>
-	</ul>
 </div>
 </li>
 {{~}}
@@ -184,7 +178,8 @@ function onSignIn(googleUser) {
 <template id="templateTerm">
 <div class="term container z-depth-2 white scrollspy" id="term{{=it}}" data-term-id="{{=it}}">
 	<header>
-		<h4 class="left-align">{{=termName(it)}}</h4>
+		<h4 class="left">{{=termName(it)}}</h4>
+		<a href="#" class="right" onclick="confirmRemove({{=it}})"><i class="trash-term-button small mdi-action-delete"></i></a>
 	</header>
 	<table class="striped">
 		<thead>
@@ -236,4 +231,143 @@ function onSignIn(googleUser) {
 <li><a data-major-id="{{=i}}">{{=major.name}} ({{=major.abbr}})</a></li>
 <li class="divider"></li>
 {{~}}
+</template>
+
+<template id="templateAfterLogin">
+<i class="small mdi-social-person left"></i>Login</a></li>
+				</ul>
+			</div>
+
+		</div>
+	</nav>
+	<div class="row">
+		<div class="col s10" id="schedule">
+
+		</div>
+
+		<div id="sidenav">
+			<div class="col hide-on-small-only s2">
+				<ul class="section table-of-contents">
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div> <!-- DROPDOWNS/MODALS -->
+	<ul class="dropdown-content" id="dropdownMajorPicker">
+	</ul>
+	<div id="modalNewTerm" class="modal">
+		<div class="modal-content">
+			<div id="newTermQuarterPicker" class="row center-align input-field">
+				<a class="btn-flat waves-effect selected teal" data-value="0">Spring</a>
+				<a class="btn-flat waves-effect" data-value="1">Summer</a>
+				<a class="btn-flat waves-effect" data-value="2">Fall</a>
+				<a class="btn-flat waves-effect" data-value="3">Winter</a>
+			</div>
+			<div id="newTermYearSelect" class="row center-align">
+				<a class="btn-floating btn-large waves-effect"
+					onclick="$(this).next().html($(this).next().html() - 1);">
+					<i class="mdi-hardware-keyboard-arrow-left"></i>
+				</a>
+				<span class="bold">2015</span>
+				<a class="btn-floating btn-large waves-effect"
+					onclick="$(this).prev().html(+($(this).prev().html()) + 1);">
+					<i class="medium mdi-hardware-keyboard-arrow-right"></i>
+				</a>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="divider"></div>
+			<a class="btn waves-effect waves-light"
+				onclick="addTerm(+(
+					$('#newTermYearSelect span').html()+''
+					+$('#newTermQuarterPicker .selected').attr('data-value')
+				));">
+				Add</a>
+			<a class="btn-flat waves-effect modal-close waves-teal">Cancel</a>
+		</div>
+	</div>
+	<div class="modal" id="modalRemovalMsg">
+		<div class="modal-content">
+			Are you sure you want to remove the <span></span> term and all of its courses from your plan?
+		</div>
+		<div class="modal-footer">
+			<a onclick="removeTerm(+$(this).attr('data-term-id'))" class="btn waves-effect waves-light modal-close red">Remove</a>
+			<a class="btn-flat waves-effect waves-light modal-close">Cancel</a>
+		</div>
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="js/jquery.table2excel.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/dot/1.0.3/doT.js'></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+<script src="js/init.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
+
+<template id="templateMajorRequirements">
+{{~it :category:cat_id}}
+<li>
+<a class="collapsible-header collection-item">{{=category.name}}</a>
+<div class="collapsible-body" style="padding-left:40px">
+	<ul>
+		{{~category.subgroups :group:group_index}}
+		<li><a href="#!"></a></li>
+		<li><span class="credit-desc" data-min-credits="{{=group.min_credits}}"></span></li>
+		<li>
+		{{~group.courses :course_id:course_index}}
+		{{var course = state.courses[course_id];}}
+		<div class='collection-item course-selection row' data-course-id="{{=course_id}}">
+			<div class="col s8">
+				<span class="course-shortname">{{=course.name}}</span><br>
+				<span class="course-fullname">{{=course.fullname}}</span>
+			</div>
+			<div class='col s4'>
+				<div id="btncourse{{=course_id}}"
+					onclick="toggleCourse({{=course_id}});"
+					class="btn-floating btn-sm waves-effect waves-light accent-3">
+					<i class="icon small mdi-content-add"></i>
+				</div>
+			</div>
+		</div>
+		{{~}}
+		</li>
+		{{~}}
+		</li>
+	</ul>
+</div>
+</li>
+{{~}}
+</template>
+
+<template id="templateTerm">
+<div class="term container z-depth-2 white scrollspy" id="term{{=it}}" data-term-id="{{=it}}">
+	<header>
+		<h4 class="left">{{=termName(it)}}</h4>small
+		<a href="#" class="right" onclick="confirmRemove({{=it}})"><i class="trash-term-button small mdi-action-delete"></i></a>
+	</header>
+	<table class="striped">
+		<thead>
+			<tr>
+				<th data-field="id">Course Number</th>
+				<th data-field="num">Course Name</th>
+				<th data-field="name">Credits</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
+</template>
+
+<template id="templateAfterLogin">
+	<i class="small mdi-social-person left"><span>{{=it.name}}</span>
+	<img src="{{=it.imgurl}}" class="circle responsive-img">
 </template>

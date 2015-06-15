@@ -3,10 +3,9 @@ var state = {};
 var templates = {}
 state.requirements = [];
 state.terms = [];
-
-//state.terms[20152] = [155, 154, 153];
-
-state.selectedterm = 20152;
+var userid = null;
+var username = "";
+var userimg = "";
 state.courseplan = [];
 var term_names = [
 	"Spring ",
@@ -17,6 +16,36 @@ var term_names = [
 
 function termName(term_id) {
 	return (term_names[term_id%10] + Math.floor(term_id/10));
+}
+
+function subgroupTitle(credits) {
+	if (credits < 0) {
+		return "Required:";
+	} else {
+		return credits + " Credits from:";
+	}
+}
+
+function googleSignIn() {
+	var gauth = gapi.auth2.init({
+		clientid: '549719962445-llq8g7bvndvf48igepa99ch5b8bul0gp.apps.googleusercontent.com',
+		scope: 'profile',
+	});
+	gauth.signIn().then(function(a,b,c) {console.log(a,b,c);});
+
+}
+
+function onSignIn(googleUser) {
+	var profile = googleUser.getBasicProfile();
+	userid = profile.getId();
+	username = profile.getName();
+	userimg = profile.getImageUrl();
+
+	$("#btnGoogleLogin").html(templates.AfterLogin({
+		id: userid,
+		name: username,
+		imgurl: userimg
+	}));
 }
 
 function nextTerm(term_id) {
@@ -37,7 +66,7 @@ function prevTerm(term_id) {
 
 function addTerm(term_id) {
 	if (state.terms[term_id]) {
-		Materialize.toast("<i class='small mdi-alert-error red-text'></i>&nbsp;&nbsp;"+termName(term_id)+" already exists", 4000);
+		errorToast(termName(term_id)+" already exists");
 		return;
 	}
 	$("#modalNewTerm").closeModal();
@@ -71,12 +100,29 @@ function removeTerm(term_id) {
 	});
 	term.remove();
 	//Remove sidenav link
-	$("#sidenav table-of-contents li[data-term-id="+term_id+"]").remove();
+	$("#sidenav .table-of-contents li[data-term-id="+term_id+"]").remove();
 	state.terms[term_id] = null;
 }
 
 function addCourse(id) {
+	if (!state.terms[state.selectedterm]) {
+		warningToast("You must have a term selected");
+	}
 	addCourseToTerm(state.selectedterm, id);
+}
+
+function confirmRemove(term_id) {
+	$("#modalRemovalMsg .modal-content span").html(termName(term_id));
+	$("#modalRemovalMsg .modal-footer .btn").attr('data-term-id', term_id);
+	$("#modalRemovalMsg").openModal();
+}
+
+function errorToast(msg) {
+	Materialize.toast("<i class='small mdi-alert-error red-text'></i>&nbsp;&nbsp;"+msg, 4000);
+}
+
+function warningToast(msg) {
+	Materialize.toast("<i class='small mdi-alert-warning yellow-text'></i>&nbsp;&nbsp;"+msg, 4000);
 }
 
 function addCourseToTerm(term_id, course_id) {
@@ -179,6 +225,8 @@ function onTermClick() {
 			$(this).siblings().removeClass("selected teal");
 			$(this).addClass("selected teal");
 		});
+
+		$("#btnGoogleLogin a").on('click', googleSignIn);
 
 	}); // end of document ready
 })(jQuery); // end of jQuery name space
