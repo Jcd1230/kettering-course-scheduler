@@ -37,7 +37,19 @@ function prevTerm(term_id) {
 
 function addTerm(term_id) {
 	state.terms[term_id] = [];
-	$("#schedule").append(templates.Term(term_id));
+	var latestTerm = 0;
+	for (var term in state.terms) {
+		if (term > latestTerm && term_id < term) {
+			latestTerm = term;
+		}
+	}
+	if (latestTerm === 0) {
+		$("#schedule").prepend(templates.Term(term_id));
+	} else {
+		$("#term"+latestTerm).after(templates.Term(term_id));
+	}
+
+	$('.scrollspy').scrollSpy();
 }
 
 function removeTerm(term_id) {
@@ -114,7 +126,6 @@ function selectMajor(major_id) {
 
 		var loading = false;
 
-		$('.scrollspy').scrollSpy();
 
 		// Load templates, i.e.
 		// templates.ModalPicker = "<div ..."
@@ -143,6 +154,5 @@ function selectMajor(major_id) {
 				}
 			}
 		);
-
 	}); // end of document ready
 })(jQuery); // end of jQuery name space

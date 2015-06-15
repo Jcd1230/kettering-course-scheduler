@@ -203,15 +203,27 @@ for i,v in ipairs(majors) do
 				table.insert(curgroup.courses, v)
 			end
 		elseif line:find("^[A-Z]+%-? ?[%d/A-Z]+") then
-			local abbr, num = line:match("^([A-Z]+)%-? ?([%d/A-Z]+)")
+			local abbr, num = line:match("^([A-Z]+)%-? ?([%-%d/A-Z]+)")
 			local num2
-			if type(num) == "string" and num:find("/") then
-				num, num2 = num:match("(%d+)/(%d+)")
+			if type(num) == "string" and (num:find("[^a-zA-Z0-9]")) then
+				num, num2 = num:match("(%d+).(%d+)")
+				if not (num and num2) then
+					gprint("COULD NOT MATCH TWO CLASSES")
+				end
 			end
 			curgroup.courses = curgroup.courses or {}
 			if not courses[abbr] then
 				--gprint("MISSING CLASS",abbr,"-",num)
 			else
+				local proceed1, proceed2 = true, true
+				for i,v in ipairs(curgroup.courses) do
+					if num and (v == courses[abbr][num]) then
+						proceed1 = false
+					end
+					if num2 and (v == courses[abbr][num2]) then
+						proceed2 = false
+					end
+				end
 				table.insert(curgroup.courses, courses[abbr][num])
 				if num2 then
 					table.insert(curgroup.courses, courses[abbr][num2])

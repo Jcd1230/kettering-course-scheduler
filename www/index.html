@@ -27,17 +27,17 @@
 		<div id="test1" class="no-padding col s12">
 			<ul class="courses no-padding collection with-header">
 				<li class="major collection-header">
-					<div>
-						<h5 class="group-title"></h5>
-						<h5 class="percent"></h5>
-					</div>
-					<div class="progress">
-						<div class="determinate" style="width: 0%"></div>
-					</div>
+				<div>
+					<h5 class="group-title"></h5>
+					<h5 class="percent"></h5>
+				</div>
+				<div class="progress">
+					<div class="determinate" style="width: 0%"></div>
+				</div>
 				</li>
 				<li class="no-padding ">
-					<ul id="majorRequirements" class="collapsible collapsible-accordion">
-					</ul>
+				<ul id="majorRequirements" class="collapsible collapsible-accordion">
+				</ul>
 				</li>
 			</ul>
 		</div>
@@ -48,28 +48,30 @@
 	<nav id="topnav"  class="light-blue lighten-2 z-depth-2">
 		<div class="row">
 			<div class="col s3 no-padding">
-			  <ul class="controlls left teal lighten-1">
-		        <li><a href="#"><i class="small mdi-content-archive left"></i>Schedule</a></li>
-		      </ul>					
+				<ul class="controlls left teal lighten-1">
+					<li><a href="#"><i class="small mdi-content-archive left"></i>Schedule</a></li>
+				</ul>
 			</div>
 			<div class="col s6 no-padding">
 				<h6 id="brand-title" class="center-align">Kettering Course Planner</h6>
 			</div>
 			<div class="col s3 no-padding">
-			  <ul class="controlls right teal lighten-1">
-		        <li><a href="#"><i class="small mdi-content-add left"></i>Term</a></li>
-		        <li><a href="#"><i class="small mdi-social-person left"></i>Login</a></li>
-		      </ul>					
+				<ul class="controlls right teal lighten-1">
+					<li><a id="btnAddTerm" onclick="$('#modalNewTerm').openModal()">
+						<i class="small mdi-content-add left"></i>
+						Term
+					</a></li>
+					<li><a href="#"><i class="small mdi-social-person left"></i>Login</a></li>
+				</ul>
 			</div>
+
 		</div>
 	</nav>
-
 	<div class="row">
 		<div class="col s10" id="schedule">
 
-
 		</div>
-		
+
 		<div id="sidenav">
 			<div class="col hide-on-small-only s2">
 				<ul class="section table-of-contents">
@@ -79,10 +81,27 @@
 	</div>
 </div>
 
-<div style="display: none;"> <!-- DROPDOWNS/MODALS -->
-	<ul id="dropdownMajorPicker" class="dropdown-content">
-
+<div> <!-- DROPDOWNS/MODALS -->
+	<ul class="dropdown-content" id="dropdownMajorPicker">
 	</ul>
+	<div id="modalNewTerm" class="modal">
+		<div class="modal-content">
+			<div class="input-field col s12">
+				<select id="selectedQuarter">
+					<option value="" disabled selected>Pick season...</option>
+					<option value="0">Spring</option>
+					<option value="1">Summer</option>
+					<option value="2">Winter</option>
+					<option value="3">Fall</option>
+				</select>
+				<label>Quarter</label>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a class="btn waves-effect waves-light">Add</a>
+			<a class="btn-flat waves-effect waves-teal">Cancel</a>
+		</div>
+	</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -107,93 +126,93 @@ function onSignIn(googleUser) {
 </html>
 
 <template id="templateMajorRequirements">
-	{{~it :category:cat_id}}
-	<li>
-		<a class="collapsible-header collection-item">{{=category.name}}</a>
-		<div class="collapsible-body" style="padding-left:40px">
-			<ul>
-				{{~category.subgroups :group:group_index}}
-				<li><a href="#!"></a></li>
-				<li><span class="credit-desc" data-min-credits="{{=group.min_credits}}"></span></li>
-				<li>
-					{{~group.courses :course_id:course_index}}
-					{{var course = state.courses[course_id];}}
-					<div class='collection-item course-selection row' data-course-id="{{=course_id}}">
-						<div class="col s8">
-							<span class="course-shortname">{{=course.name}}</span><br>
-							<span class="course-fullname">{{=course.fullname}}</span>
-						</div>
-						<div class='col s4'>
-							<div id="btncourse{{=course_id}}"
-								onclick="toggleCourse({{=course_id}});"
-								class="btn-floating btn-sm waves-effect waves-light accent-3">
-								<i class="icon small mdi-content-add"></i>
-							</div>
-						</div>
-					</div>
-					{{~}}
-				</li>
-				{{~}}
-			</li>
-		</ul>
+{{~it :category:cat_id}}
+<li>
+<a class="collapsible-header collection-item">{{=category.name}}</a>
+<div class="collapsible-body" style="padding-left:40px">
+	<ul>
+		{{~category.subgroups :group:group_index}}
+		<li><a href="#!"></a></li>
+		<li><span class="credit-desc" data-min-credits="{{=group.min_credits}}"></span></li>
+		<li>
+		{{~group.courses :course_id:course_index}}
+		{{var course = state.courses[course_id];}}
+		<div class='collection-item course-selection row' data-course-id="{{=course_id}}">
+			<div class="col s8">
+				<span class="course-shortname">{{=course.name}}</span><br>
+				<span class="course-fullname">{{=course.fullname}}</span>
+			</div>
+			<div class='col s4'>
+				<div id="btncourse{{=course_id}}"
+					onclick="toggleCourse({{=course_id}});"
+					class="btn-floating btn-sm waves-effect waves-light accent-3">
+					<i class="icon small mdi-content-add"></i>
+				</div>
+			</div>
 		</div>
-	</li>
-	{{~}}
+		{{~}}
+		</li>
+		{{~}}
+		</li>
+	</ul>
+</div>
+</li>
+{{~}}
 </template>
 
 <template id="templateTerm">
-	<div class="term container z-depth-2 white scrollspy" id="term{{=it}}">
-		<header>
-			<h4 class="left-align">{{=termName(it)}}</h4>
-		</header>
-		<table class="striped">
-			<thead>
-				<tr>
-					<th data-field="id">Course Number</th>
-					<th data-field="num">Course Name</th>
-					<th data-field="name">Credits</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-	</div>
+<div class="term container z-depth-2 white scrollspy" id="term{{=it}}">
+	<header>
+		<h4 class="left-align">{{=termName(it)}}</h4>
+	</header>
+	<table class="striped">
+		<thead>
+			<tr>
+				<th data-field="id">Course Number</th>
+				<th data-field="num">Course Name</th>
+				<th data-field="name">Credits</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
 </template>
 
 <template id="templateTermItem">
-	<tr data-course-id={{=it.id}}>
-		<td>{{=it.name}}</td>
-		<td>{{=it.fullname}}</td>
-		<td>{{=it.credits}}</td>
-		<td>
-			<div onclick="removeCourse({{=it.id}});"
-				class='btn-floating btn-sm waves-effect waves-light accent-3'>
-				<i class="icon small mdi-content-remove"></i>
-			</div>
-		</td>
-	</tr>
+<tr data-course-id={{=it.id}}>
+	<td>{{=it.name}}</td>
+	<td>{{=it.fullname}}</td>
+	<td>{{=it.credits}}</td>
+	<td>
+		<div onclick="removeCourse({{=it.id}});"
+			class='btn-floating btn-sm waves-effect waves-light accent-3'>
+			<i class="icon small mdi-content-remove"></i>
+		</div>
+	</td>
+</tr>
 </template>
 
 <template id="templateTermTOCItem">
-	<li>
-	<a href="#spring2016">Spring 2016</a>
-	</li>
+<li>
+<a href="#spring2016">Spring 2016</a>
+</li>
 </template>
 
 <!-- Modals -->
 <template id="templateModalPicker">
-	<div id="modalPickMajor" class="modal">
-		<h5 class="group-title">test modal</h5>
-		<select name="majorselect">
-			<option value="asdf">spaghetti</option>
-		</select>
-	</div>
+<div id="modalPickMajor" class="modal">
+	<h5 class="group-title">test modal</h5>
+	<select name="majorselect">
+		<option value="asdf">spaghetti</option>
+	</select>
+</div>
 </template>
 
 <template id="templateDropdownMajorPickerItems">
-	{{~it :major:i}}
-	<li><a data-major-id="{{=i}}">{{=major.name}} ({{=major.abbr}})</a></li>
-	<li class="divider"></li>
-	{{~}}
+{{~it :major:i}}
+<li><a data-major-id="{{=i}}">{{=major.name}} ({{=major.abbr}})</a></li>
+<li class="divider"></li>
+{{~}}
 </template>
