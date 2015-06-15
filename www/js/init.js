@@ -177,6 +177,7 @@ function selectMajor(major_id) {
 		state.requirements[major_id] = reqs;
 		requirements.html(templates.MajorRequirements(reqs));
 		requirements.collapsible();
+		$("#majorBtn").html(state.majors[major_id].name);
 	});
 }
 
