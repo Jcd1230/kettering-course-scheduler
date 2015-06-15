@@ -105,6 +105,7 @@
 			</div>
 		</div>
 		<div class="modal-footer">
+			<div class="divider"></div>
 			<a class="btn waves-effect waves-light"
 				onclick="addTerm(+(
 					$('#newTermYearSelect span').html()+''
@@ -181,7 +182,7 @@ function onSignIn(googleUser) {
 </template>
 
 <template id="templateTerm">
-<div class="term container z-depth-2 white scrollspy" id="term{{=it}}">
+<div class="term container z-depth-2 white scrollspy" id="term{{=it}}" data-term-id="{{=it}}">
 	<header>
 		<h4 class="left-align">{{=termName(it)}}</h4>
 	</header>
@@ -215,8 +216,8 @@ function onSignIn(googleUser) {
 </template>
 
 <template id="templateTermTOCItem">
-<li>
-<a href="#spring2016">Spring 2016</a>
+<li data-term-id={{=it}}">
+	<a href="#term{{=it}}">{{=termName(it)}}</a>
 </li>
 </template>
 

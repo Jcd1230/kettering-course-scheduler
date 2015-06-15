@@ -50,9 +50,15 @@ function addTerm(term_id) {
 	state.terms[term_id] = [];
 	if (latestTerm === 0) {
 		$("#schedule").prepend(templates.Term(term_id));
+		$("#sidenav .table-of-contents").prepend(templates.TermTOCItem(term_id));
 	} else {
 		$("#term"+latestTerm).after(templates.Term(term_id));
+		$("#sidenav .table-of-contents li[data-term-id="+latestTerm+"]")
+			.after(templates.TermTOCItem(term_id));
 	}
+
+	// Add onclick for selection
+	$("#term"+term_id).on('click', onTermClick);
 
 	$('.scrollspy').scrollSpy();
 }
@@ -124,6 +130,12 @@ function selectMajor(major_id) {
 		requirements.html(templates.MajorRequirements(reqs));
 		requirements.collapsible();
 	});
+}
+
+function onTermClick() {
+	$(this).siblings().removeClass("selected");
+	$(this).addClass("selected");
+	state.selectedterm = $(this).attr('data-term-id');
 }
 
 (function($){
