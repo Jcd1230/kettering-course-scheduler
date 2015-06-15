@@ -2,7 +2,7 @@
 var state = {};
 var templates = {}
 state.requirements = [];
-state.terms = [];
+state.terms = {};
 
 var userid = null;
 var username = "";
@@ -188,7 +188,7 @@ function selectMajor(major_id) {
 	console.log("Selected major "+major_id);
 	state.selectedmajor = major_id;
 	var requirements = $("#majorRequirements");
-	$.ajax("/api/get/requirements?major="+major_id).done(function(data) {
+	return $.ajax("/api/get/requirements?major="+major_id).done(function(data) {
 		var reqs = JSON.parse(data);
 		state.requirements[major_id] = reqs;
 		requirements.html(templates.MajorRequirements(reqs));
@@ -235,6 +235,19 @@ function onTermClick() {
 						addCourseToTerm(term_id, course_id);
 					}
 				}
+				if (localStorage.save) {
+					var saved = JSON.parse(localStorage.save);
+					selectMajor(saved.majorid).done(function() {
+						for (var term in saved.terms) {
+							if (saved.terms[term]) {
+								addTerm(term);
+							}
+							for (var course in saved.terms[term]) {
+								addCourseToTerm(term, course);
+							}
+						}
+					});
+				}
 			}
 		);
 
@@ -243,7 +256,13 @@ function onTermClick() {
 			$(this).addClass("selected teal");
 		});
 
-		$("#btnGoogleLogin a").on('click', googleSignIn);
+		$("#btnSave").on('click', function() {
+			localStorage.save = JSON.stringify({
+				terms: state.terms,
+				majorid: state.selectedmajor
+			});
+		});
+
 
 	}); // end of document ready
 })(jQuery); // end of jQuery name space
