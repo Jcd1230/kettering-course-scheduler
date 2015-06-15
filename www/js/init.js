@@ -70,6 +70,8 @@ function removeTerm(term_id) {
 		removeCourse(course);
 	});
 	term.remove();
+	//Remove sidenav link
+	$("#sidenav table-of-contents li[data-term-id="+term_id+"]").remove();
 	state.terms[term_id] = null;
 }
 

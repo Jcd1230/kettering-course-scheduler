@@ -185,9 +185,12 @@ li.major{
   background-color: #eceff1;
 }
 
+.term {
+	transition: margin .35s cubic-bezier(0.25, 0.46, 0.45, 0.94), width .35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
 .term.selected {
-	box-shadow: 0 8px 17px 0 rgba(38,166,154,0.2),0 6px 20px 0 rgba(36,166,154,0.19);
-	transition: margin .35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow .35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	width: 80%;
 }
 
 .term.selected h4 {
