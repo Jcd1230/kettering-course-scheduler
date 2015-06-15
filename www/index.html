@@ -14,7 +14,7 @@
 </head>
 <body id="pagebody" class="row">
 
-<div id="sidebar" class="white">
+<div id="sidebar" class="white z-depth-3">
 	<div id="logo" class="center-align">
 		<img src="images/kulogo.png"/>
 	</div>
@@ -45,17 +45,22 @@
 </div>
 
 <div class="col s12" id="main">
-	<nav id="topnav"  class="light-blue lighten-2">
+	<nav id="topnav"  class="light-blue lighten-2 z-depth-2">
 		<div class="row">
-			<div class="col s3">
-				<a class="waves-effect waves-light btn">Stuff</a>
+			<div class="col s3 no-padding">
+			  <ul class="controlls left teal lighten-1">
+		        <li><a href="#"><i class="small mdi-content-archive left"></i>Schedule</a></li>
+		      </ul>					
 			</div>
-			<div class="col s3">
-				Kettering Course Scheduler
+			<div class="col s6 no-padding">
+				<h6 id="brand-title" class="center-align">Kettering Course Planner</h6>
 			</div>
-			<div class="col s3">
-				<a id = "addterm" class="waves-effect waves-light btn">Add Term</a>
-			</div>	
+			<div class="col s3 no-padding">
+			  <ul class="controlls right teal lighten-1">
+		        <li><a href="#"><i class="small mdi-content-add left"></i>Term</a></li>
+		        <li><a href="#"><i class="small mdi-social-person left"></i>Login</a></li>
+		      </ul>					
+			</div>
 		</div>
 	</nav>
 
@@ -64,6 +69,7 @@
 
 
 		</div>
+		
 		<div id="sidenav">
 			<div class="col hide-on-small-only s2">
 				<ul class="section table-of-contents">

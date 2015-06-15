@@ -7,13 +7,13 @@ body,html{
 }
 
 h6 {
-  font-size: 1.04rem;
+  font-size: 1.24rem;
   line-height: 0.804rem;
   margin: 0.82rem 0 0.656rem 0;
 }
 
-.bold {
-	font-weight: bold;
+#brand-title{
+  padding-top: 13px;  
 }
 
 #controls{
@@ -52,6 +52,7 @@ h6 {
   width:25%;
   position: fixed;
   overflow: scroll;
+  z-index: 100;
 }
 
 #sidebar .collection{
@@ -69,7 +70,13 @@ h6 {
 
 #topnav{
   position: fixed;
+  width: 75%;
 }
+
+.bold {
+	font-weight: bold;
+}
+
 .courses{
   border-right: 0;
   border-left: 0;
@@ -96,10 +103,6 @@ div.course-selection {
 	width: 90%;
 	float: left;
 	margin: 4px 30px 4px 4px;
-}
-
-div.course-selection h6 {
-	line-height
 }
 
 .group-header{
