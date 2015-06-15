@@ -131,7 +131,7 @@ function warningToast(msg) {
 
 function addCourseToTerm(term_id, course_id) {
 	state.credits_taken += state.courses[course_id].credits;
-	state.terms[state.selectedterm].push(course_id);
+	state.terms[term_id].push(course_id);
 	state.courseplan[course_id] = term_id;
 	$("#term"+term_id).find("tbody")
 		.append(templates.TermItem(state.courses[course_id]));
@@ -244,6 +244,14 @@ function onTermClick() {
 		});
 
 		$("#btnGoogleLogin a").on('click', googleSignIn);
+
+		$("#btnSave").on('click', function() {
+			/*localStorage.save = JSON.encode({
+				requirements = state.requirements,
+				courseplan = state.courseplan,
+				terms
+			});*/
+		}
 
 	}); // end of document ready
 })(jQuery); // end of jQuery name space

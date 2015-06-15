@@ -34,7 +34,6 @@
 				</div>
 				<div id="majorProgressBar" class="progress">
 					<div class="determinate" style="width: 0%"></div>
-					<div class="determinate" style="width: 0%"></div>
 				</div>
 				</li>
 				<li class="no-padding ">
@@ -51,7 +50,8 @@
 		<div class="row">
 			<div class="col s3 no-padding">
 				<ul class="controlls left teal lighten-1">
-					<li><a href="#"><i class="small mdi-content-archive left"></i>Schedule</a></li>
+					<li><a class="dropdown-button" data-activates="dropdownPlanMenu"
+						href="#"><i class="small mdi-content-archive left"></i>Schedule</a></li>
 				</ul>
 			</div>
 			<div class="col s6 no-padding">
@@ -87,6 +87,9 @@
 
 <div> <!-- DROPDOWNS/MODALS -->
 	<ul class="dropdown-content" id="dropdownMajorPicker">
+	</ul>
+	<ul class="dropdown-content" id="dropdownPlanMenu">
+		<li><a id="btnSave" href="#">Save</a></li>
 	</ul>
 	<div id="modalNewTerm" class="modal">
 		<div class="modal-content">
