@@ -86,20 +86,40 @@
 	</ul>
 	<div id="modalNewTerm" class="modal">
 		<div class="modal-content">
-			<div class="input-field col s12">
-				<select id="selectedQuarter">
-					<option value="" disabled selected>Pick season...</option>
-					<option value="0">Spring</option>
-					<option value="1">Summer</option>
-					<option value="2">Winter</option>
-					<option value="3">Fall</option>
-				</select>
-				<label>Quarter</label>
+			<div id="newTermQuarterPicker" class="row center-align input-field">
+				<a class="btn-flat waves-effect selected teal" data-value="0">Spring</a>
+				<a class="btn-flat waves-effect" data-value="1">Summer</a>
+				<a class="btn-flat waves-effect" data-value="2">Fall</a>
+				<a class="btn-flat waves-effect" data-value="3">Winter</a>
+			</div>
+			<div id="newTermYearSelect" class="row center-align">
+				<a class="btn-floating btn-large waves-effect"
+					onclick="$(this).next().html($(this).next().html() - 1);">
+					<i class="mdi-hardware-keyboard-arrow-left"></i>
+				</a>
+				<span class="bold">2015</span>
+				<a class="btn-floating btn-large waves-effect"
+					onclick="$(this).prev().html(+($(this).prev().html()) + 1);">
+					<i class="medium mdi-hardware-keyboard-arrow-right"></i>
+				</a>
 			</div>
 		</div>
 		<div class="modal-footer">
-			<a class="btn waves-effect waves-light">Add</a>
-			<a class="btn-flat waves-effect waves-teal">Cancel</a>
+			<a class="btn waves-effect waves-light"
+				onclick="addTerm(+(
+					$('#newTermYearSelect span').html()+''
+					+$('#newTermQuarterPicker .selected').attr('data-value')
+				));">
+				Add</a>
+			<a class="btn-flat waves-effect modal-close waves-teal">Cancel</a>
+		</div>
+	</div>
+	<div class="modal" id="modalMsgDuplicateTerm">
+		<div class="modal-content">
+			Could not add the term because it already exists.
+		</div>
+		<div class="modal-footer">
+			<a class="btn waves-effect waves-light modal-close">Okay</a>
 		</div>
 	</div>
 </div>

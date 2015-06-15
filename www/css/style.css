@@ -13,7 +13,7 @@ h6 {
 }
 
 #brand-title{
-  padding-top: 13px;  
+  padding-top: 13px;
 }
 
 #controls{
@@ -71,6 +71,30 @@ h6 {
 #topnav{
   position: fixed;
   width: 75%;
+}
+
+#newTermQuarterPicker .selected {
+	color: white;
+}
+
+#newTermQuarterPicker a {
+	font-size: 2rem;
+}
+
+#newTermYearSelect span {
+	font-size: 2.5rem;
+}
+
+#newTermYearSelect i {
+	font-size: 3.6rem;
+}
+
+#newTermYearSelect a {
+	margin: 0 20px;
+}
+
+#modalNewTerm {
+	width: 760px;
 }
 
 .bold {

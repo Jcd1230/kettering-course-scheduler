@@ -36,13 +36,18 @@ function prevTerm(term_id) {
 }
 
 function addTerm(term_id) {
-	state.terms[term_id] = [];
+	if (state.terms[term_id]) {
+		Materialize.toast("<i class='small mdi-alert-error red-text'></i>&nbsp;&nbsp;"+termName(term_id)+" already exists", 4000);
+		return;
+	}
+	$("#modalNewTerm").closeModal();
 	var latestTerm = 0;
 	for (var term in state.terms) {
-		if (term > latestTerm && term_id < term) {
+		if (term > latestTerm && term_id > term) {
 			latestTerm = term;
 		}
 	}
+	state.terms[term_id] = [];
 	if (latestTerm === 0) {
 		$("#schedule").prepend(templates.Term(term_id));
 	} else {
@@ -126,6 +131,7 @@ function selectMajor(major_id) {
 
 		var loading = false;
 
+		$("select").material_select();
 
 		// Load templates, i.e.
 		// templates.ModalPicker = "<div ..."
@@ -154,5 +160,11 @@ function selectMajor(major_id) {
 				}
 			}
 		);
+
+		$("#newTermQuarterPicker > a").on('click', function() {
+			$(this).siblings().removeClass("selected teal");
+			$(this).addClass("selected teal");
+		});
+
 	}); // end of document ready
 })(jQuery); // end of jQuery name space
